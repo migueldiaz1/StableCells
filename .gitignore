@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+examples/output/
+
+# Internal dev-only equivalence check against the pre-refactor pipeline --
+# hardcodes this machine's absolute paths (including the private, un-cleaned
+# original folder) and real patient-derived sample footage, so it's not
+# useful or runnable for anyone else. Kept locally, not published.
+verification/

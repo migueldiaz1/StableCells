@@ -1,0 +1,10 @@
+aicsimageio
+nd2
+opencv-python
+numpy
+scikit-image
+
+# Only needed for DETECTION_METHOD = "sam" (the default, see configs/default_params.py):
+# torch
+# sam2  (pip install "git+https://github.com/facebookresearch/sam2.git", plus a checkpoint --
+#        see README.md)
