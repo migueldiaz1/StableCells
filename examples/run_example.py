@@ -54,11 +54,6 @@ def _resolve_detection_method() -> str:
 def main() -> None:
     config.DETECTION_METHOD = _resolve_detection_method()
     config.DEBUG_DETECTION = False
-    # registration.py writes its own debug images (kps_gftt_*.png, lk_match_*.png)
-    # to config.OUTPUT_DIR -- NOT to the output_dir argument below -- so it has to
-    # be set here too, or they land in whatever path configs/default_params.py
-    # happens to have (meant for the real pipeline, not this example).
-    config.OUTPUT_DIR = OUTPUT_DIR
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     result_info = run_full_pipeline(EXAMPLE_VIDEO, OUTPUT_DIR)

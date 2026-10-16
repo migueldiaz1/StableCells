@@ -5,7 +5,12 @@ from pipeline import run_full_pipeline
 
 
 def main() -> None:
-    os.makedirs(config.OUTPUT_DIR, exist_ok=True)
+    # Captured once: run_full_pipeline() itself sets config.OUTPUT_DIR (to
+    # keep its own debug images next to each video's other output), so
+    # re-reading config.OUTPUT_DIR inside the loop below would pick up the
+    # *previous* video's folder instead of this base directory.
+    base_output_dir = config.OUTPUT_DIR
+    os.makedirs(base_output_dir, exist_ok=True)
 
     nd2_files = [f for f in os.listdir(config.INPUT_DIR) if f.endswith(".nd2")]
     if not nd2_files:
@@ -23,7 +28,7 @@ def main() -> None:
 
         print(f"\n[>] Processing: {filename}")
         video_name = os.path.splitext(filename)[0]
-        output_dir = os.path.join(config.OUTPUT_DIR, video_name)
+        output_dir = os.path.join(base_output_dir, video_name)
         os.makedirs(output_dir, exist_ok=True)
 
         try:

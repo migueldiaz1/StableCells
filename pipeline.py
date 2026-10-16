@@ -38,6 +38,14 @@ def run_full_pipeline(nd2_path: str, output_dir: str) -> dict | None:
       4. Temporal CLAHE
       5. Background mask and final video write
     """
+    # registration.py writes its own debug images (kps_gftt_*.png,
+    # lk_match_*.png) to config.OUTPUT_DIR -- keep it in sync with the
+    # output_dir actually used for this call, so they always land next to
+    # this video's other output instead of wherever config.OUTPUT_DIR
+    # happened to be left at (and so a direct run_full_pipeline() call
+    # works without having to set config.OUTPUT_DIR separately).
+    config.OUTPUT_DIR = output_dir
+
     filename = os.path.basename(nd2_path)
 
     reader = AICSImage(nd2_path)
