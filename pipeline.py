@@ -194,6 +194,7 @@ def run_full_pipeline(nd2_path: str, output_dir: str) -> dict | None:
 
     if config.CLAHE:
         print("[+] Applying CLAHE to the registered video...")
+        mask_sam_for_clahe = final_info.get("_sam_mask") if getattr(config, "CLAHE_MASK_HISTOGRAMS", False) else None
         base_frames = apply_clahe_to_frames(
             frames=clean_frames,
             crop_side=final_info["crop_side"],
@@ -202,6 +203,7 @@ def run_full_pipeline(nd2_path: str, output_dir: str) -> dict | None:
             ellipse_info=final_info.get("_ellipse"),
             num_blocks=config.CLAHE_BLOCKS,
             clip_limit=config.CLAHE_CLIP_LIMIT,
+            mask_sam=mask_sam_for_clahe,
         )
     else:
         base_frames = clean_frames

@@ -24,6 +24,13 @@ CLAHE = True
 CLAHE_BLOCKS = 16
 # CLAHE histogram clip limit (fraction of a block's pixel count used as the clipping threshold).
 CLAHE_CLIP_LIMIT = 0.04
+# False (default, matches every result in the paper): each block's histogram
+# is computed over every pixel in that block, background included -- the
+# background is noisy but mostly flat, so in practice this barely affects
+# the LUTs. True: restrict each block's histogram to pixels inside the SAM 2
+# mask (clahe.py's own mask_sam parameter, plumbed through but never enabled
+# by default) -- only has an effect when DETECTION_METHOD = "sam".
+CLAHE_MASK_HISTOGRAMS = False
 
 # False: blend the background with a Gaussian-blurred version of itself (soft, still has texture).
 # True: replace the background with a single flat value (the median background intensity),
